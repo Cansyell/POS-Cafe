@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(): JsonResponse
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('category')->where('is_active', 1)->where('is_featured', 1)->get();
         return response()->json([
             'status' => true,
             'data' => $products
