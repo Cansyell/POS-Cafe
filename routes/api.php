@@ -11,7 +11,7 @@ use App\Http\Controllers\API\Auth\LoginController;
 
 Route::post('/auth/login', [LoginController::class, 'login'])-> name('login');
 
-Route::post('auth/register', \App\Http\Controllers\Api\Auth\RegisterController::class);
+Route::post('auth/register', \App\Http\Controllers\API\Auth\RegisterController::class);
 // Route::post('auth/login', \App\Http\Controllers\Api\Auth\LoginController::class);
 
 Route::get('/user', function (Request $request) {
