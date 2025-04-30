@@ -7,20 +7,27 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\OrderItemController;
+use App\Http\Controllers\API\Auth\LoginController;
+
+Route::post('/auth/login', [LoginController::class, 'login'])-> name('login');
+
+Route::post('auth/register', \App\Http\Controllers\Api\Auth\RegisterController::class);
+// Route::post('auth/login', \App\Http\Controllers\Api\Auth\LoginController::class);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('/categories', CategoryController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/categories', CategoryController::class);
 
-Route::apiResource('/suppliers', SupplierController::class);
+    Route::apiResource('/suppliers', SupplierController::class);
 
-Route::apiResource('orders', OrderController::class);
+    Route::apiResource('orders', OrderController::class);
     Route::patch('orders/{id}/status', [OrderController::class, 'updateStatus']);
     Route::patch('orders/{id}/cancel', [OrderController::class, 'cancel']);
     Route::get('orders/status/{status}', [OrderController::class, 'getByStatus']);
-    
+
     // Product management
     Route::apiResource('products', ProductController::class);
     Route::patch('products/{id}/remove-image', [ProductController::class, 'removeImage']);
@@ -37,3 +44,4 @@ Route::apiResource('orders', OrderController::class);
         Route::patch('/{id}/quantity', [OrderItemController::class, 'updateQuantity']);
         Route::post('/bulk', [OrderItemController::class, 'bulkAdd']);
     });
+});
