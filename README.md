@@ -7,7 +7,11 @@ Sistem REST API untuk POS (Point of Sales) Caffe.
 Base URL: `https://pos.cansyell.com/api/`
 
 ---
-
+### CATATAN: 
+1. Pertama Regis lalu Login terlebih dahulu.
+2. Simpan token login kedalam authentication bearer token.
+3. Pastikan headernya ada Accept Application/JSON.
+---
 ### 🔐 Authentication
 #### Login
 - **Endpoint:** `POST /auth/login`
@@ -18,7 +22,18 @@ Base URL: `https://pos.cansyell.com/api/`
   "password": "123123123123"
 }
 ```
-
+#### Register
+- **Endpoint:** `POST /auth/register`
+- **Body Example:**
+```json
+{
+    "name":"admin1",
+    "email":"lala@gmail.com",
+    "password": "123123123123",
+    "role": "admin",
+    "is_active": 1
+}
+```
 ---
 
 ### 📁 Categories
